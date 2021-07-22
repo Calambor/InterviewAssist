@@ -1,8 +1,11 @@
 package com.example.demo.view
 
+import com.example.Database
 import com.example.demo.app.Expected
 import com.example.demo.app.Question
 import com.example.demo.app.Styles
+import com.squareup.sqldelight.db.SqlDriver
+import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import javafx.scene.paint.Color
 import tornadofx.*
 
@@ -16,6 +19,16 @@ class MainView : View("Interview Assist") {
         }
         add(InterviewQuestionRow(lifeQuestion))
         add(InterviewQuestionRow(lifeQuestion))
+    }
+
+    init {
+        // TODO DB test
+        val driver: SqlDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
+        Database.Schema.create(driver)
+
+        val db = Database(driver)
+        val qs = db.questionQueriesQueries.selectAll()
+        1
     }
 }
 
