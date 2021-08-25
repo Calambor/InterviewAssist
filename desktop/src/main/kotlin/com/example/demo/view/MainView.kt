@@ -1,6 +1,7 @@
 package com.example.demo.view
 
 import com.example.Database
+import com.example.common.app.CommonModel
 import com.example.demo.app.Expected
 import com.example.demo.app.Question
 import com.example.demo.app.Styles
@@ -23,6 +24,8 @@ class MainView : View("Interview Assist") {
 
     init {
         // TODO DB test
+        val todoRemove = CommonModel(1)
+
         val driver: SqlDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
         Database.Schema.create(driver)
 
