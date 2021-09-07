@@ -1,0 +1,15 @@
+CREATE TABLE user (
+    id TEXT NOT NULL,
+    name TEXT NOT NULL
+);
+
+INSERT INTO user (id, name)
+VALUES ("UserId1", "Bob");
+
+selectAll:
+SELECT *
+FROM user;
+
+createUser:
+INSERT INTO user (id, name)
+VALUES (:id, :name);

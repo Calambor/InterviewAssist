@@ -31,6 +31,7 @@ class MainView : View("Interview Assist") {
 
         val db = Database(driver)
         val qs = db.questionQueriesQueries.selectAll()
+        val res = qs.executeAsList()
         1
     }
 }
