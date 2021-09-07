@@ -7,7 +7,7 @@ A sample Ktor project running as an application inside [Docker](https://www.dock
 To build and run this application with Docker, execute the following commands from project root folder:
 
 ```bash
-# ./gradlew :docker:installDist   -   Build instead
+./gradlew :docker:installDist
 docker build -t my-application docker
 docker run -p 8080:8080 my-application
 ```

@@ -17,7 +17,7 @@ fun Application.main() {
                 }
                 body {
                     val runtime = Runtime.getRuntime()
-                    p { +"Hello from Ktor Netty engine running in Docker sample application" }
+                    p { +"Hello from Ktor Netty, more than a sample application." }
                     p { +"Runtime.getRuntime().availableProcessors(): ${runtime.availableProcessors()}" }
                     p { +"Runtime.getRuntime().freeMemory(): ${runtime.freeMemory()}" }
                     p { +"Runtime.getRuntime().totalMemory(): ${runtime.totalMemory()}" }

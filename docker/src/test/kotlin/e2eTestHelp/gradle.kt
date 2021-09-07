@@ -13,7 +13,7 @@ fun runGradleWaiting(vararg args: String): Process {
 
 fun runGradle(vararg args: String): Process {
     // val gradlewPath = System.getProperty("gradlew") ?: error("System property 'gradlew' should point to Gradle Wrapper file")
-    val gradlewPath = "./../gradlew"
+    val gradlewPath = "./../gradlew.bat"
     val processArgs = listOf(gradlewPath, "-Dorg.gradle.logging.level=quiet", "--quiet") + args
 
     return ProcessBuilder(processArgs).start()
