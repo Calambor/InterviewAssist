@@ -26,3 +26,6 @@ insert:
 INSERT INTO question (id, version, question, owner)
 VALUES (:id, :version, :question, :owner);
 
+delete:
+DELETE FROM question
+WHERE question.id == :id;

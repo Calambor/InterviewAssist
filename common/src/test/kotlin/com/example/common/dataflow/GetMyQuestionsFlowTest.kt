@@ -30,7 +30,7 @@ internal class GetMyQuestionsFlowTest {
     @Test
     fun `Flow returns questions`() {
         val questionsFlow = GetMyQuestionsFlow()
-        val initialResult = questionsFlow.clientGetResult(db).first()
+        val initialResult = questionsFlow.executeDbQuery(db)
         assertEquals(initialResult.questions!!.first().question, "Life from database")
     }
 }
