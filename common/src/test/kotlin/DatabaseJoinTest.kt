@@ -1,12 +1,14 @@
 import com.example.Database
+import com.example.common.app.Visibility
 import com.example.common.dataflow.mapQuestionsUsers
+import com.example.demo.Question
+import com.squareup.sqldelight.EnumColumnAdapter
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 
 internal class DatabaseJoinTest {
 
@@ -17,7 +19,12 @@ internal class DatabaseJoinTest {
         val driver: SqlDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
         Database.Schema.create(driver)
 
-        db = Database(driver)
+        db = Database(
+            driver,
+            questionAdapter = Question.Adapter(
+                visibilityAdapter = EnumColumnAdapter()
+            )
+        )
     }
 
     @AfterEach
@@ -30,5 +37,6 @@ internal class DatabaseJoinTest {
 
         assertEquals(questionsWithUsers[0].second.name, "Mr. Sample")
         assertEquals(questionsWithUsers[0].first.question, "Life from database")
+        assertEquals(questionsWithUsers[0].first.visibility, Visibility.OFFLINE)
     }
 }

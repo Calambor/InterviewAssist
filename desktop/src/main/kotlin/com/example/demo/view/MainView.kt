@@ -1,16 +1,13 @@
 package com.example.demo.view
 
-import com.example.Database
-import com.example.common.app.CommonModel
 import com.example.demo.app.Expected
 import com.example.demo.app.Question
 import com.example.demo.app.Styles
-import com.squareup.sqldelight.db.SqlDriver
-import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import javafx.scene.paint.Color
 import tornadofx.*
 
-private val lifeQuestion = Question("questionId", 1, "What is the answer to life, the universe and everything?", listOf(Expected("42")))
+private val lifeQuestion =
+    Question("questionId", 1, "What is the answer to life, the universe and everything?", listOf(Expected("42")))
 
 class MainView : View("Interview Assist") {
 
@@ -22,18 +19,6 @@ class MainView : View("Interview Assist") {
         add(InterviewQuestionRow(lifeQuestion))
     }
 
-    init {
-        // TODO DB test
-        val todoRemove = CommonModel(1)
-
-        val driver: SqlDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
-        Database.Schema.create(driver)
-
-        val db = Database(driver)
-        val qs = db.questionQueries.selectAll()
-        val res = qs.executeAsList()
-        1
-    }
 }
 
 class InterviewQuestionRow(val question: Question = lifeQuestion) : View() {

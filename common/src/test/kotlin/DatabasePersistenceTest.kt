@@ -1,13 +1,13 @@
 import com.example.Database
 import com.example.common.app.getVersion
 import com.example.common.app.setVersion
-import com.squareup.sqldelight.db.SqlDriver
+import com.example.demo.Question
+import com.squareup.sqldelight.EnumColumnAdapter
 import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 import java.io.File
 
 internal class DatabasePersistenceTest {
@@ -23,7 +23,12 @@ internal class DatabasePersistenceTest {
             driver.setVersion(1)
         }
 
-        db = Database(driver)
+        db = Database(
+            driver,
+            questionAdapter = Question.Adapter(
+                visibilityAdapter = EnumColumnAdapter()
+            )
+        )
     }
 
     @AfterEach
@@ -35,7 +40,12 @@ internal class DatabasePersistenceTest {
         db.userQueries.createUser("TestId", "Elon")
 
         val newDriver = JdbcSqliteDriver("jdbc:sqlite:testPersistenceDatabase")
-        val newDb = Database(newDriver)
+        val newDb = Database(
+            newDriver,
+            questionAdapter = Question.Adapter(
+                visibilityAdapter = EnumColumnAdapter()
+            )
+        )
 
         val users = newDb.userQueries.selectAll().executeAsList()
         assertEquals(2, users.size)
