@@ -23,8 +23,8 @@ FROM question
 JOIN user ON question.owner == user.id;
 
 insert:
-INSERT INTO question (id, version, question, owner)
-VALUES (:id, :version, :question, :owner);
+INSERT INTO question (id, version, question, owner, visibility)
+VALUES (:id, :version, :question, :owner, :visibility);
 
 delete:
 DELETE FROM question

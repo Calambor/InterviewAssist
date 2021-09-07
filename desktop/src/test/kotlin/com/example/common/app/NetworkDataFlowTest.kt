@@ -39,9 +39,9 @@ class NetworkDataFlowTest {
         val networkItems = result.elementAt(1)
 
         assertEquals(0, localItems.questions!!.size)
-        assertEquals(1, networkItems.questions!!.size)
-        assertEquals("Dummy question", networkItems.questions!!.first().question)
+        assertEquals(2, networkItems.questions!!.size)
+        assertEquals("Life from database", networkItems.questions!![0].question)
+        assertEquals("Question from Server", networkItems.questions!![1].question)
     }
-
 
 }

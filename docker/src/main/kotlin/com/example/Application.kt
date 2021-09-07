@@ -4,6 +4,9 @@ import com.example.common.app.Visibility
 import com.example.common.dataflow.CollectionOfItems
 import com.example.common.dataflow.GetMyQuestionsFlow
 import com.example.demo.Question
+import com.squareup.sqldelight.EnumColumnAdapter
+import com.squareup.sqldelight.db.SqlDriver
+import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -21,6 +24,17 @@ import kotlinx.html.p
 import kotlinx.html.title
 
 fun Application.main() {
+    val driver: SqlDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
+    Database.Schema.create(driver)
+
+    val db = Database(
+        driver,
+        questionAdapter = Question.Adapter(
+            visibilityAdapter = EnumColumnAdapter()
+        )
+    )
+    db.questionQueries.insert("ServerLauchQuestionId", 1, "Question from Server", "sample_user_1", Visibility.PUBLIC)
+
     install(DefaultHeaders)
     install(CallLogging)
     install(ContentNegotiation) {
@@ -29,11 +43,7 @@ fun Application.main() {
     routing {
         get(GetMyQuestionsFlow().path) {
             call.respond(
-                CollectionOfItems(
-                    questions = listOf(
-                        Question("dummy", 1, "Dummy question", "sample_user_1", Visibility.PUBLIC)
-                    )
-                )
+                GetMyQuestionsFlow().executeDbQuery(db)
             )
         }
         get("/") {
