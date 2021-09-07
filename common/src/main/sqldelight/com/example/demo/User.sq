@@ -4,7 +4,7 @@ CREATE TABLE user (
 );
 
 INSERT INTO user (id, name)
-VALUES ("UserId1", "Bob");
+VALUES ("sample_user_1", "Mr. Sample");
 
 selectAll:
 SELECT *

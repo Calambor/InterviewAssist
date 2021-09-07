@@ -30,7 +30,7 @@ class MainView : View("Interview Assist") {
         Database.Schema.create(driver)
 
         val db = Database(driver)
-        val qs = db.questionQueriesQueries.selectAll()
+        val qs = db.questionQueries.selectAll()
         val res = qs.executeAsList()
         1
     }

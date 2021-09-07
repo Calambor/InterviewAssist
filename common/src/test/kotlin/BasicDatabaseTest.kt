@@ -25,19 +25,17 @@ internal class BasicDatabaseTest {
 
     @Test
     fun `Initial database contains sample user`() {
-        assertFalse(false)
         val users = db.userQueries.selectAll().executeAsList()
         assertEquals(1, users.size)
-        assertEquals("Bob", users[0].name)
+        assertEquals("Mr. Sample", users[0].name)
     }
 
     @Test
     fun `Add user creates a new user`() {
-        assertFalse(false)
         db.userQueries.createUser("TestId", "Elon")
         val users = db.userQueries.selectAll().executeAsList()
         assertEquals(2, users.size)
-        assertEquals("Bob", users[0].name)
+        assertEquals("Mr. Sample", users[0].name)
         assertEquals("Elon", users[1].name)
     }
 }

@@ -1,0 +1,25 @@
+-- src/main/sqldelight/com/example/sqldelight/Question.sq
+
+CREATE TABLE question (
+    id TEXT NOT NULL,
+    version INTEGER NOT NULL,
+    question TEXT NOT NULL,
+    owner TEXT NOT NULL
+);
+
+INSERT INTO question (id, version, question, owner)
+VALUES ("sample_life_qid", 1, "Life from database", "sample_user_1");
+
+selectAll:
+SELECT *
+FROM question;
+
+selectWithUsers:
+SELECT *
+FROM question
+JOIN user ON question.owner == user.id;
+
+insert:
+INSERT INTO question (id, version, question, owner)
+VALUES (:id, :version, :question, :owner);
+

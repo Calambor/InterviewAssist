@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
+import java.io.File
 
 internal class DatabasePersistenceTest {
 
@@ -15,12 +16,8 @@ internal class DatabasePersistenceTest {
 
     @BeforeEach
     fun setUp() {
+        File("testPersistenceDatabase").delete()
         val driver: JdbcSqliteDriver = JdbcSqliteDriver("jdbc:sqlite:testPersistenceDatabase")
-        if (driver.getVersion() == 1) {
-            driver.execute(0, "DROP TABLE user", 0, null)
-            driver.execute(0, "DROP TABLE commonDeprecated", 0, null)
-            driver.setVersion(0)
-        }
         if (driver.getVersion() == 0) {
             Database.Schema.create(driver)
             driver.setVersion(1)
@@ -42,7 +39,7 @@ internal class DatabasePersistenceTest {
 
         val users = newDb.userQueries.selectAll().executeAsList()
         assertEquals(2, users.size)
-        assertEquals("Bob", users[0].name)
+        assertEquals("Mr. Sample", users[0].name)
         assertEquals("Elon", users[1].name)
     }
 }
